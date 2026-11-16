@@ -6,18 +6,17 @@ alwaysApply: true
 # Project conventions
 
 - Prefer a small, maintainable change.
-- The current feature request lives in ASSIGNMENT.md. Plan it with the plan-feature skill before changing application code.
-- Match the structure of `src/modules/note` when adding a feature.
-- HTTP stays in controllers. Business logic stays in services. Database access uses `pg` through `DatabaseService`.
+- Put each feature in `src/modules/<feature>`.
+- HTTP stays in controllers. Business logic stays in services. Parameterized SQL stays in the feature service and uses `pg` through `DatabaseService`.
 - Validate every external input with a DTO.
 - Every schema change has a SQL migration in `db/migrations`.
-- Cover new behavior with tests. Do not change a test so that broken behavior passes.
+- Cover new behavior with a service test and a controller test. Do not change a test so that broken behavior passes.
 - Stay on TypeScript strict. Do not use `any`.
 - Do not add dependencies or new layers unless the requested feature requires them.
 
-Copy `src/modules/note` for a new feature:
+A feature module contains:
 
-- `note.controller.ts` accepts the HTTP request and returns the response.
-- `note.service.ts` holds the business logic and is the only place in the feature that runs SQL.
-- `dto/create-note.dto.ts` validates external input.
-- `note.service.spec.ts` and `note.controller.spec.ts` cover that behavior.
+- `<feature>.controller.ts` accepts the HTTP request and returns the response.
+- `<feature>.service.ts` holds the business logic and is the only place in the feature that runs SQL.
+- `dto/` validates external input.
+- `<feature>.service.spec.ts` and `<feature>.controller.spec.ts` cover that behavior.

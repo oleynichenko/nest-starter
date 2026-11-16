@@ -10,7 +10,7 @@ description: >-
 
 ## Before planning
 
-Read ASSIGNMENT.md, .cursor/rules/project.mdc, and src/modules/note.
+Read ASSIGNMENT.md and .cursor/rules/project.mdc. Read `src/modules/note` when that sample module is still present.
 
 If the Feature section of ASSIGNMENT.md is empty, stop and ask the user to fill it in. Do not invent a feature.
 
@@ -20,7 +20,7 @@ Write the plan. Do not edit ASSIGNMENT.md. Do not change application code yet.
 
 The plan names:
 
-- the module to add and the Note files it copies
+- the module to add and, when Note is still present, the Note files it copies
 - SQL changes and the migration in `db/migrations`
 - endpoints, DTOs, and status codes
 - tests
@@ -34,7 +34,7 @@ Ask a question only when the feature cannot be built without the answer. Otherwi
 
 Implement only that plan.
 
-Match src/modules/note: thin controller, business logic in the service, parameterized SQL only in the service, DTOs for external input, a SQL migration for every schema change, and tests for the new behavior.
+Follow `.cursor/rules/project.mdc`. When `src/modules/note` is still present, copy that sample, then remove the module and add a migration that drops the `notes` table.
 
 Do not add dependencies or new layers unless the feature request requires them.
 Do not change a test so that broken behavior passes.
