@@ -17,9 +17,6 @@ npm-debug.log*
 .env.local
 .env.*.local
 
-# generated Prisma Client
-/src/generated
-
 # typescript
 *.tsbuildinfo
 

@@ -3,7 +3,7 @@
 # Checklist
 
 - [ ] Module
-- [ ] Prisma model
+- [ ] SQL table
 - [ ] Migration
 - [ ] Endpoints
 - [ ] DTOs

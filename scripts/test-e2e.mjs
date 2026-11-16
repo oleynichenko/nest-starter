@@ -33,17 +33,14 @@ function run(args) {
       if (code === 0) {
         resolve();
       } else {
-        reject(
-          new Error(`${args.join(' ')} exited with code ${code}`),
-        );
+        reject(new Error(`${args.join(' ')} exited with code ${code}`));
       }
     });
   });
 }
 
-const prismaCli = path.join(root, 'node_modules', 'prisma', 'build', 'index.js');
+const migrateScript = path.join(root, 'scripts', 'migrate.mjs');
 const vitestCli = path.join(root, 'node_modules', 'vitest', 'vitest.mjs');
 
-await run([prismaCli, 'generate']);
-await run([prismaCli, 'migrate', 'deploy']);
+await run([migrateScript]);
 await run([vitestCli, 'run', '--config', './vitest.config.e2e.ts']);

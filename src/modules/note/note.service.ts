@@ -1,23 +1,45 @@
+import { randomUUID } from 'node:crypto';
 import { Injectable } from '@nestjs/common';
-import { PrismaService } from '../../database/prisma/prisma.service.js';
-import type { Note } from '../../generated/prisma/client.js';
+import { DatabaseService } from '../../database/database.service.js';
 import type { CreateNoteDto } from './dto/create-note.dto.js';
+
+export type Note = {
+  id: string;
+  title: string;
+  createdAt: Date;
+};
+
+const insertNote = `
+  INSERT INTO notes (id, title)
+  VALUES ($1, $2)
+  RETURNING id, title, created_at AS "createdAt"
+`;
+
+const selectNotes = `
+  SELECT id, title, created_at AS "createdAt"
+  FROM notes
+  ORDER BY created_at DESC
+`;
 
 @Injectable()
 export class NoteService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly database: DatabaseService) {}
 
-  create(dto: CreateNoteDto): Promise<Note> {
-    return this.prisma.note.create({
-      data: {
-        title: dto.title,
-      },
-    });
+  async create(dto: CreateNoteDto): Promise<Note> {
+    const rows = await this.database.query<Note>(insertNote, [
+      randomUUID(),
+      dto.title,
+    ]);
+    const note = rows[0];
+
+    if (!note) {
+      throw new Error('Failed to create note');
+    }
+
+    return note;
   }
 
   findAll(): Promise<Note[]> {
-    return this.prisma.note.findMany({
-      orderBy: { createdAt: 'desc' },
-    });
+    return this.database.query<Note>(selectNotes);
   }
 }

@@ -1,13 +1,13 @@
 import { Injectable, ServiceUnavailableException } from '@nestjs/common';
-import { PrismaService } from '../database/prisma/prisma.service.js';
+import { DatabaseService } from '../database/database.service.js';
 
 @Injectable()
 export class HealthService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(private readonly database: DatabaseService) {}
 
   async check(): Promise<{ status: 'ok' }> {
     try {
-      await this.prisma.$queryRaw`SELECT 1`;
+      await this.database.query('SELECT 1');
       return { status: 'ok' };
     } catch {
       throw new ServiceUnavailableException();

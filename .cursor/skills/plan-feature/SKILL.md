@@ -21,11 +21,11 @@ Write the plan. Do not edit ASSIGNMENT.md. Do not change application code yet.
 The plan names:
 
 - the module to add and the Note files it copies
-- Prisma model changes and the migration
+- SQL changes and the migration in `db/migrations`
 - endpoints, DTOs, and status codes
 - tests
 - assumptions for anything the feature request leaves open
-- removal of the sample Note module, its Prisma model, and a migration that drops the Note table, when Note is still present
+- removal of the sample Note module and a migration that drops the `notes` table, when Note is still present
 
 Ask a question only when the feature cannot be built without the answer. Otherwise choose the smaller option and list it under Assumptions.
 
@@ -34,7 +34,7 @@ Ask a question only when the feature cannot be built without the answer. Otherwi
 
 Implement only that plan.
 
-Match src/modules/note: thin controller, business logic in the service, Prisma calls only in the service, DTOs for external input, a migration for every schema change, and tests for the new behavior.
+Match src/modules/note: thin controller, business logic in the service, parameterized SQL only in the service, DTOs for external input, a SQL migration for every schema change, and tests for the new behavior.
 
 Do not add dependencies or new layers unless the feature request requires them.
 Do not change a test so that broken behavior passes.

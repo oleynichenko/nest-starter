@@ -1,7 +1,6 @@
 import { Test } from '@nestjs/testing';
-import type { Note } from '../../generated/prisma/client.js';
 import { NoteController } from './note.controller.js';
-import { NoteService } from './note.service.js';
+import { NoteService, type Note } from './note.service.js';
 
 describe('NoteController', () => {
   let controller: NoteController;

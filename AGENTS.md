@@ -1,5 +1,9 @@
 # AGENTS.md
 
+## Data access
+
+This service uses `pg` directly. `src/database/database.service.ts` owns the connection pool. Feature services run parameterized SQL. Each schema change is a SQL file in `db/migrations`, applied with `npm run db:migrate`.
+
 ## NestJS
 
 This app's version of NestJS is likely newer than what you know. https://docs.nestjs.com/llms.txt indexes its documentation, with a markdown page per chapter.
